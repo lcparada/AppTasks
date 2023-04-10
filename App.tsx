@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import RootRoutes from "./src/routes/Root.routes";
+
+import { NavigationContainer } from "@react-navigation/native";
+
+import { UpdateTaskProvider } from "./src/contexts/TaskProvider";
+
+import { UsersProvider } from "./src/contexts/UserProvider";
+
+import {
+  useFonts,
+  Lexend_300Light,
+  Lexend_400Regular,
+  Lexend_500Medium,
+  Lexend_600SemiBold,
+  Lexend_700Bold,
+} from "@expo-google-fonts/lexend";
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Lexend_300Light,
+    Lexend_400Regular,
+    Lexend_500Medium,
+    Lexend_600SemiBold,
+    Lexend_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <UpdateTaskProvider>
+        <UsersProvider>
+          <RootRoutes />
+        </UsersProvider>
+      </UpdateTaskProvider>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
